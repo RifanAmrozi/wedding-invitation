@@ -3,6 +3,7 @@ package repository
 import (
 	"wedding-invitation/internal/entity"
 
+	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 )
 
@@ -20,6 +21,7 @@ func NewCommentRepository(db *gorm.DB) CommentRepository {
 }
 
 func (r *commentRepository) CreateComment(comment *entity.Comment) error {
+	comment.ID = uuid.New()
 	return r.db.Create(comment).Error
 }
 

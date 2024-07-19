@@ -3,6 +3,7 @@ package repository
 import (
 	"wedding-invitation/internal/entity"
 
+	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 )
 
@@ -20,11 +21,12 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 }
 
 func (r *userRepository) CreateUser(user *entity.User) error {
-	return r.db.Create(user).Error
+	user.ID = uuid.New()
+	return r.db.Table("wedding_users").Create(user).Error
 }
 
 func (r *userRepository) GetUserByUsername(username string) (*entity.User, error) {
 	var user entity.User
-	err := r.db.Where("username = ?", username).First(&user).Error
+	err := r.db.Table("wedding_users").Where("username = ?", username).First(&user).Error
 	return &user, err
 }

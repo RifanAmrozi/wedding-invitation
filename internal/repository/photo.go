@@ -3,6 +3,7 @@ package repository
 import (
 	"wedding-invitation/internal/entity"
 
+	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 )
 
@@ -20,6 +21,7 @@ func NewPhotoRepository(db *gorm.DB) PhotoRepository {
 }
 
 func (r *photoRepository) CreatePhoto(photo *entity.Photo) error {
+	photo.ID = uuid.New()
 	return r.db.Create(photo).Error
 }
 
