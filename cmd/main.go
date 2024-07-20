@@ -13,7 +13,7 @@ import (
 
 func main() {
 	// Initialize the database
-	// config.InitDB()
+	config.InitDB()
 
 	// Initialize repositories
 	userRepo := repository.NewUserRepository(config.DB)
