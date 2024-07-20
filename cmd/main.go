@@ -8,6 +8,7 @@ import (
 	"wedding-invitation/internal/usecase"
 
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func main() {
@@ -45,6 +46,13 @@ func main() {
 		auth.GET("/comments/:photo_id", commentHandler.GetComments)
 	}
 
+	//ping pong
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "pong",
+		})
+	})
+	
 	// Start the server
 	router.Run(":8080")
 }
