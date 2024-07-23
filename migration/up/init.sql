@@ -22,6 +22,7 @@ CREATE TABLE comments (
     photo_id UUID NOT NULL,
     guest_name VARCHAR(255) NOT NULL,
     comment TEXT NOT NULL,
+    presence BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE CASCADE
 );

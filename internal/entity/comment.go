@@ -11,6 +11,7 @@ type Comment struct {
 	PhotoID   uuid.UUID `gorm:"type:uuid;not null"`
 	GuestName string    `gorm:"not null"`
 	Comment   string    `gorm:"type:text;not null"`
+	Presence  bool      `gorm:"default:false"`
 	CreatedAt time.Time
 }
 
