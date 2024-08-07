@@ -8,7 +8,7 @@ import (
 )
 
 type CommentUsecase interface {
-	PostComment(photoID, guestName, comment string) error
+	PostComment(photoID, guestName, comment string, presence bool) error
 	GetComments(photoID string) ([]entity.Comment, error)
 }
 
@@ -20,11 +20,12 @@ func NewCommentUsecase(commentRepo repository.CommentRepository) CommentUsecase 
 	return &commentUsecase{commentRepo: commentRepo}
 }
 
-func (c *commentUsecase) PostComment(photoID, guestName, comment string) error {
+func (c *commentUsecase) PostComment(photoID, guestName, comment string, presence bool) error {
 	commentEntity := &entity.Comment{
 		PhotoID:   uuid.MustParse(photoID),
 		GuestName: guestName,
 		Comment:   comment,
+		Presence:  presence,
 	}
 
 	return c.commentRepo.CreateComment(commentEntity)

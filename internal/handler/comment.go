@@ -20,6 +20,7 @@ func (h *CommentHandler) PostComment(c *gin.Context) {
 		PhotoID   string `json:"photo_id"`
 		GuestName string `json:"guest_name"`
 		Comment   string `json:"comment"`
+		Presence  bool   `json:"presence"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -27,7 +28,7 @@ func (h *CommentHandler) PostComment(c *gin.Context) {
 		return
 	}
 
-	if err := h.commentUsecase.PostComment(input.PhotoID, input.GuestName, input.Comment); err != nil {
+	if err := h.commentUsecase.PostComment(input.PhotoID, input.GuestName, input.Comment, input.Presence); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
