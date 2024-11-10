@@ -7,8 +7,9 @@ import (
 	"wedding-invitation/internal/repository"
 	"wedding-invitation/internal/usecase"
 
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -43,7 +44,7 @@ func main() {
 		auth.POST("/photos", photoHandler.PostPhoto)
 		auth.GET("/photos", photoHandler.GetPhotos)
 		auth.POST("/comments", commentHandler.PostComment)
-		auth.GET("/comments/:photo_id", commentHandler.GetComments)
+		auth.GET("/comments", commentHandler.GetComments)
 	}
 
 	//ping pong
@@ -52,7 +53,7 @@ func main() {
 			"message": "pong",
 		})
 	})
-	
+
 	// Start the server
 	router.Run(":8080")
 }

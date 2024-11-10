@@ -9,7 +9,7 @@ import (
 
 type CommentRepository interface {
 	CreateComment(comment *entity.Comment) error
-	GetCommentsByPhotoID(photoID string) ([]entity.Comment, error)
+	GetCommentsByPhotoID() ([]entity.Comment, error)
 }
 
 type commentRepository struct {
@@ -25,8 +25,8 @@ func (r *commentRepository) CreateComment(comment *entity.Comment) error {
 	return r.db.Create(comment).Error
 }
 
-func (r *commentRepository) GetCommentsByPhotoID(photoID string) ([]entity.Comment, error) {
+func (r *commentRepository) GetCommentsByPhotoID() ([]entity.Comment, error) {
 	var comments []entity.Comment
-	err := r.db.Where("photo_id = ?", photoID).Find(&comments).Error
+	err := r.db.Find(&comments).Error
 	return comments, err
 }

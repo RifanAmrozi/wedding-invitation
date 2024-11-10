@@ -17,7 +17,6 @@ func NewCommentHandler(commentUsecase usecase.CommentUsecase) *CommentHandler {
 
 func (h *CommentHandler) PostComment(c *gin.Context) {
 	var input struct {
-		PhotoID   string `json:"photo_id"`
 		GuestName string `json:"guest_name"`
 		Comment   string `json:"comment"`
 		Presence  bool   `json:"presence"`
@@ -28,7 +27,7 @@ func (h *CommentHandler) PostComment(c *gin.Context) {
 		return
 	}
 
-	if err := h.commentUsecase.PostComment(input.PhotoID, input.GuestName, input.Comment, input.Presence); err != nil {
+	if err := h.commentUsecase.PostComment(input.GuestName, input.Comment, input.Presence); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -37,9 +36,7 @@ func (h *CommentHandler) PostComment(c *gin.Context) {
 }
 
 func (h *CommentHandler) GetComments(c *gin.Context) {
-	photoID := c.Param("photo_id")
-
-	comments, err := h.commentUsecase.GetComments(photoID)
+	comments, err := h.commentUsecase.GetComments()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
